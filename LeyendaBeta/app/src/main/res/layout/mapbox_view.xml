@@ -10,8 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         mapbox:mapid="samo92.cifej7bg76zk1sukn48zu58fi"
-        mapbox:accessToken=
-            "pk.eyJ1Ijoic2FtbzkyIiwiYSI6ImNpZmVqN2Nwa
-            TZ6OXhza2tuZmtvNjl5MXoifQ.PO6t1lTVz_l7g_r-3B2--A"/>
+        mapbox:accessToken="pk.eyJ1Ijoic2FtbzkyIiwiYSI6ImNpZmVqN2NwaTZ6OXhza2tuZmtvNjl5MXoifQ.PO6t1lTVz_l7g_r-3B2--A"/>
 
 </LinearLayout>
