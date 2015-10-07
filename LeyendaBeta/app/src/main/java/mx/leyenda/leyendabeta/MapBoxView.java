@@ -30,20 +30,21 @@ public class MapBoxView extends AppCompatActivity {
         //this.findViewById(R.id.mapview);
         setContentView(R.layout.mapbox_view);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        myMapView = (MapView) findViewById(R.id.mapview);
+        locationProvider = new GpsLocationProvider(getApplicationContext());
 
         //Validar estado de gps
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-           showAlertDialog(MapBoxView.this,"GPS","El GPS esta desactivado, ¿Desea activarlo?",true);
+            showAlertDialog(MapBoxView.this, "GPS", "El GPS esta desactivado, ¿Desea activarlo?", true);
         }
-        myMapView = (MapView) findViewById(R.id.mapview);
-        locationProvider = new GpsLocationProvider(getApplicationContext());
+
         setupMapView();
 
 
     }
 
     private void setupMapView() {
-        ///////////////////////FUNCIONALIDAD PARA TRACKEAR AL USUARIO///////////////////////////////
+
         myMapView.setUserLocationEnabled(true);
         myMapView.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW);
         myMapView.setUserLocationRequiredZoom(14);
