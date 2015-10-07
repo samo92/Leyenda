@@ -25,9 +25,17 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
 
+        ///////////////////////FUNCIONALIDAD PARA TRACKEAR AL USUARIO///////////////////////////////
+        myMapView.setUserLocationEnabled(true);
+        myMapView.setUserLocationTrackingMode(UserLocationOverlay.TrackingMode.FOLLOW);
+        myMapView.setUserLocationRequiredZoom(14);
+        myMapView.goToUserLocation(true);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
         UserLocationOverlay myLocationOverlay = new UserLocationOverlay(locationProvider, myMapView);
         myLocationOverlay.enableMyLocation();
         myLocationOverlay.setDrawAccuracyEnabled(true);
         myMapView.getOverlays().add(myLocationOverlay);
+
     }
 }
