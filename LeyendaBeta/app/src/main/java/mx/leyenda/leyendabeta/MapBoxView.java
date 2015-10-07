@@ -33,7 +33,7 @@ public class MapBoxView extends AppCompatActivity {
 
         //Validar estado de gps
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            AlertGPSoff();
+           showAlertDialog(MapBoxView.this,"GPS","El GPS esta desactivado, ¿Desea activarlo?",true);
         }
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
@@ -54,24 +54,6 @@ public class MapBoxView extends AppCompatActivity {
         myMapView.getOverlays().add(myLocationOverlay);
     }
 
-    //Mensaje para activar GPS
-    private void AlertGPSoff() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("El sustema GPS esta desactivado, ¿Desea activarlo?")
-                .setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        dialog.cancel();
-                    }
-                });
-        alertDialog = builder.create();
-        alertDialog.show();
-    }
 
     @Override
     protected void onDestroy() {
@@ -79,5 +61,25 @@ public class MapBoxView extends AppCompatActivity {
         if (alertDialog != null) {
             alertDialog.dismiss();
         }
+    }
+
+    public void showAlertDialog(Context context, String title, String message, Boolean status) {
+        AlertDialog alertDialog = new AlertDialog.Builder(context).
+                setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create();
+        alertDialog.setCancelable(false);
+        alertDialog.show();
     }
 }
