@@ -25,7 +25,9 @@ public class MapBoxView extends AppCompatActivity {
 
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
-    MbMarker myMarker;
+
+    MbMarker myMarker = new MbMarker("Iglesia de Santo Domingo", "Una monja se ahorca en un arbol de duraznos",
+                                    new LatLng(19.438547,-99.133587));
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
