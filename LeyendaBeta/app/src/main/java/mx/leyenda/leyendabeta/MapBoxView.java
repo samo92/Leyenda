@@ -103,10 +103,4 @@ public class MapBoxView extends AppCompatActivity {
                                 .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
         myMapView.addMarkers(myMarkers);
     }
-
-    /*public void customIcon(){
-        Icon myCustomIcon = new Icon(this, Icon.Size.LARGE, "ghost", "3887be");
-    }*/
-
-
 }
