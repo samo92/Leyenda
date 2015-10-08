@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
+import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
@@ -94,10 +95,17 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
+    private void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
         myMarkers.add(new Marker(myMapView,
-                myMarker.getTitleMarker(), myMarker.getDescriptionMarker(), myMarker.getLatLngMarker()));
+                                myMarker.getTitleMarker(),
+                                myMarker.getDescriptionMarker(),
+                                myMarker.getLatLngMarker())
+                                .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
         myMapView.addMarkers(myMarkers);
+    }
+
+    public void customIcon(){
+        Icon myCustomIcon = new Icon(this, Icon.Size.LARGE, "ghost", "3887be");
     }
 
 
