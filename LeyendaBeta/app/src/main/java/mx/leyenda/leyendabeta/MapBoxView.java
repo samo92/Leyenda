@@ -24,10 +24,8 @@ import java.util.ArrayList;
 public class MapBoxView extends AppCompatActivity {
 
     //Variables
-
-    private String title_marker;
-    private String description_marker;
-    private LatLng latLng_marker;
+    private ArrayList<Marker> myMarkers = new ArrayList<>();
+    MbMarker myMarker;
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -48,6 +46,7 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
+        makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
 
 
     }
@@ -93,10 +92,10 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public void makeMarker (Marker marker){     //Metodo que añade un solo marker
-        //ArrayList<Marker> markers = new ArrayList<>();
-        //markers.add()
-        myMapView.addMarker(new Marker(myMapView, title_marker, description_marker, latLng_marker));
+    public void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
+        myMarkers.add(new Marker(myMapView,
+                myMarker.getTitleMarker(), myMarker.getDescriptionMarker(), myMarker.getLatLngMarker()));
+        myMapView.addMarkers(myMarkers);
     }
 
 

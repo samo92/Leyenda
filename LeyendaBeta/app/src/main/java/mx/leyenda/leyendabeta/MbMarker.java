@@ -8,21 +8,23 @@ import com.mapbox.mapboxsdk.views.MapView;
  */
 public class MbMarker {
     //VARIABLES
-    private MapView myMapView;
+    //private MapView myMapView;
     private String titleMarker;
     private String descriptionMarker;
     private LatLng latLngMarker;
 
-    public MbMarker(MapView myMapView, String titleMarker, String descriptionMarker, LatLng latLngMarker) {
-        this.myMapView = myMapView;
+    //CONSTRUCTOR
+    public MbMarker(String titleMarker, String descriptionMarker, LatLng latLngMarker) {
+        //this.myMapView = myMapView;
         this.titleMarker = titleMarker;
         this.descriptionMarker = descriptionMarker;
         this.latLngMarker = latLngMarker;
     }
 
-    public MapView getMyMapView() {
+    //METODOS
+    /*public MapView getMyMapView() {
         return myMapView;
-    }
+    }*/
 
     public String getTitleMarker() {
         return titleMarker;
@@ -36,9 +38,9 @@ public class MbMarker {
         return latLngMarker;
     }
 
-    public void setMyMapView(MapView myMapView) {
+    /*public void setMyMapView(MapView myMapView) {
         this.myMapView = myMapView;
-    }
+    }*/
 
     public void setTitleMarker(String titleMarker) {
         this.titleMarker = titleMarker;
