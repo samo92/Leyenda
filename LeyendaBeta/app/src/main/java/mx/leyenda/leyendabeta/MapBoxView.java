@@ -10,14 +10,24 @@ import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
+import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
+
+import java.util.ArrayList;
 
 /**
  * Created by samo92 on 06/10/2015.
  */
 public class MapBoxView extends AppCompatActivity {
+
+    //Variables
+
+    private String title_marker;
+    private String description_marker;
+    private LatLng latLng_marker;
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -82,4 +92,12 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.setCancelable(false);
         alertDialog.show();
     }
+
+    public void makeMarker (Marker marker){     //Metodo que añade un solo marker
+        //ArrayList<Marker> markers = new ArrayList<>();
+        //markers.add()
+        myMapView.addMarker(new Marker(myMapView, title_marker, description_marker, latLng_marker));
+    }
+
+
 }
