@@ -102,5 +102,5 @@ public class MapBoxView extends AppCompatActivity {
                                 myMarker.getLatLngMarker())
                                 .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
         myMapView.addMarkers(myMarkers);
-    }sdhfsiuefhuwrigf
+    }
 }
