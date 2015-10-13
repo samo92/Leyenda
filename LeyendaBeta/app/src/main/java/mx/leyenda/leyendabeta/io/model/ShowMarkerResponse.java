@@ -15,5 +15,6 @@ public class ShowMarkerResponse {
     ArrayList<MbMarker> allMarkers;
 
     public ArrayList<MbMarker> getMarkers(){
-        return allMarkers;}
+        return allMarkers;
+    }
 }

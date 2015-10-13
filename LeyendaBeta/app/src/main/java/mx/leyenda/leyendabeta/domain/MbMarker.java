@@ -1,6 +1,8 @@
 package mx.leyenda.leyendabeta.domain;
 
+import com.google.gson.annotations.SerializedName;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
 
 /**
@@ -9,6 +11,7 @@ import com.mapbox.mapboxsdk.views.MapView;
 public class MbMarker {
     //VARIABLES
     //private MapView myMapView;
+    @SerializedName("id")
     private int idMarker;
     private String titleMarker;
     private String descriptionMarker;
@@ -101,6 +104,10 @@ public class MbMarker {
 
     public void setRecordMarker(String recordMarker) {
         this.recordMarker = recordMarker;
+    }
+
+    public Marker toMarker (){
+        return new Marker(titleMarker, descriptionMarker, getLatLngMarker())
     }
 }
 

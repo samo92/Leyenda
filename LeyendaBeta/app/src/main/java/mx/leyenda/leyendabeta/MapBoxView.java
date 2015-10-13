@@ -18,6 +18,11 @@ import com.mapbox.mapboxsdk.views.MapView;
 import java.util.ArrayList;
 
 import mx.leyenda.leyendabeta.domain.MbMarker;
+import mx.leyenda.leyendabeta.io.ApiClient;
+import mx.leyenda.leyendabeta.io.model.ShowMarkerResponse;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by samo92 on 06/10/2015.
@@ -52,6 +57,22 @@ public class MapBoxView extends AppCompatActivity {
         makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
 
 
+    }
+
+    private void getMarkers(){
+        ApiClient.getMarkers(new Callback<ShowMarkerResponse>() {
+            @Override
+            public void success(ShowMarkerResponse showMarkerResponse, Response response) {
+                ArrayList<MbMarker> markers = showMarkerResponse.getMarkers();
+
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
     private void setupMapView() {
