@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,6 +16,8 @@ import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 
 import java.util.ArrayList;
+
+import mx.leyenda.leyendabeta.domain.MbMarker;
 
 /**
  * Created by samo92 on 06/10/2015.
