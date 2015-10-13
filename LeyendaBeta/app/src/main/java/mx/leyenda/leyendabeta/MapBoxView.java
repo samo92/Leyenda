@@ -27,8 +27,8 @@ public class MapBoxView extends AppCompatActivity {
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
 
-    MbMarker myMarker = new MbMarker("Iglesia de Santo Domingo", "Una monja se ahorca en un arbol de duraznos",
-                                    new LatLng(19.438547,-99.133587));
+    MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
+            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -99,7 +99,7 @@ public class MapBoxView extends AppCompatActivity {
         myMarkers.add(new Marker(myMapView,
                                 myMarker.getTitleMarker(),
                                 myMarker.getDescriptionMarker(),
-                                myMarker.getLatLngMarker())
+                                myMarker.getLatLngMarker(myMarker.getLangMarker(), myMarker.getLonMarker()))
                                 .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
         myMapView.addMarkers(myMarkers);
     }

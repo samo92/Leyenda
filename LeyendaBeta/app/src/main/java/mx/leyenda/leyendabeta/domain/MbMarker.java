@@ -32,6 +32,9 @@ public class MbMarker {
     }
 
     //METODOS
+    public LatLng getLatLngMarker(double latitud, double longitud){
+        return new LatLng(latitud,longitud);
+    }
 
     //GETTERS
     public int getIdMarker() {

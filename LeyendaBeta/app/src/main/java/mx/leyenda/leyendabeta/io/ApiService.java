@@ -8,8 +8,9 @@ import retrofit.http.GET;
  * Created by samo92 on 12/10/2015.
  */
 public interface ApiService {
-    @GET(Constant.PATH_MARKERS
-    )
+    @GET(Constant.PATH_MARKERS)
+
+    void showMarker(Callback<ShowCourseResponse> serviceResponse);
     //void showCourse(Callback<ShowCourseResponse> serviceResponse);
     //void showInstructor(Callback<ShowInstructorResponse>serviceResponseInstructor);
 }
