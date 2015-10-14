@@ -2,8 +2,11 @@ package mx.leyenda.leyendabeta.domain;
 
 import com.google.gson.annotations.SerializedName;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.views.MapView;
+
+import mx.leyenda.leyendabeta.MapBoxView;
 
 /**
  * Created by samo92 on 07/10/2015.
@@ -13,12 +16,19 @@ public class MbMarker {
     //private MapView myMapView;
     @SerializedName("id")
     private int idMarker;
+    @SerializedName("titulo")
     private String titleMarker;
+    @SerializedName("descripcion")
     private String descriptionMarker;
+    @SerializedName("lon")
     private double lonMarker;
+    @SerializedName("lat")
     private double langMarker;
+    @SerializedName("genero")
     private int genreMarker;
+    @SerializedName("imagen")
     private String imageMarker;
+    @SerializedName("audio")
     private String recordMarker;
 
     //CONSTRUCTOR
@@ -107,7 +117,8 @@ public class MbMarker {
     }
 
     public Marker toMarker (){
-        return new Marker(titleMarker, descriptionMarker, getLatLngMarker())
+        return new Marker(getTitleMarker(), getDescriptionMarker(), getLatLngMarker(getLangMarker(),getLonMarker()));
+                //.setIcon(new Icon(MapBoxView.class, Icon.Size.LARGE, "danger", "3887be"));
     }
 }
 
