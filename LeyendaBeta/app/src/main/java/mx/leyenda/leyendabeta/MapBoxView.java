@@ -7,17 +7,22 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
 import com.mapbox.mapboxsdk.overlay.Icon;
+import com.mapbox.mapboxsdk.overlay.ItemizedIconOverlay;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 
 import java.util.ArrayList;
+
+import mx.leyenda.leyendabeta.ui.fragment.PlayDialogFragment;
 
 /**
  * Created by samo92 on 06/10/2015.
@@ -28,7 +33,7 @@ public class MapBoxView extends AppCompatActivity {
     private ArrayList<Marker> myMarkers = new ArrayList<>();
 
     MbMarker myMarker = new MbMarker("Iglesia de Santo Domingo", "Una monja se ahorca en un arbol de duraznos",
-                                    new LatLng(19.438547,-99.133587));
+            new LatLng(19.438547, -99.133587));
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -44,14 +49,32 @@ public class MapBoxView extends AppCompatActivity {
 
         //Validar estado de gps
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-           showAlertDialog(MapBoxView.this,"GPS","El GPS esta desactivado, ¿Desea activarlo?",true);
+            showAlertDialog(MapBoxView.this, "GPS", "El GPS esta desactivado, ¿Desea activarlo?", true);
         }
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
         makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+        myMapView.addItemizedOverlay(new ItemizedIconOverlay(MapBoxView.this, myMarkers, new ItemizedIconOverlay.OnItemGestureListener<Marker>() {
+            @Override
+            public boolean onItemSingleTapUp(int i, Marker marker) {
+                Toast.makeText(MapBoxView.this, "Marker Selected1: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
 
+            @Override
+            public boolean onItemLongPress(int i, Marker marker) {
+                showEditDialog();
+                return true;
+            }
+        }));
 
+    }
+
+    private void showEditDialog() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance("Reproducir", "http://vignette3.wikia.nocookie.net/es.gta/images/5/54/GTA_VCS.ogg/revision/latest?cb=20100503204503");
+        playDialogFragment.show(fragmentManager, "dialogfragment_play");
     }
 
     private void setupMapView() {
@@ -95,12 +118,12 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
+    private void makeMarker(ArrayList<Marker> myMarkers) {     //Metodo que añade un solo marker
         myMarkers.add(new Marker(myMapView,
-                                myMarker.getTitleMarker(),
-                                myMarker.getDescriptionMarker(),
-                                myMarker.getLatLngMarker())
-                                .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
+                myMarker.getTitleMarker(),
+                myMarker.getDescriptionMarker(),
+                myMarker.getLatLngMarker())
+                .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
         myMapView.addMarkers(myMarkers);
     }
 }
