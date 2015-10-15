@@ -25,10 +25,7 @@ dependencies {
     compile ('com.mapbox.mapboxsdk:mapbox-android-sdk:0.7.4@aar'){
         transitive=true
     }
-<<<<<<< HEAD
     compile 'com.sothree.slidinguppanel:library:3.1.1'
-=======
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.getbase:floatingactionbutton:1.10.0'
->>>>>>> origin/feature_retrofit
 }

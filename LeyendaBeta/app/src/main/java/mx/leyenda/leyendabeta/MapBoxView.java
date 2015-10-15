@@ -5,17 +5,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-<<<<<<< HEAD
-import android.preference.DialogPreference;
 import android.support.v4.app.FragmentManager;
-=======
->>>>>>> origin/feature_retrofit
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
-import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.ItemizedIconOverlay;
 import com.mapbox.mapboxsdk.overlay.Marker;
 import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
@@ -26,11 +21,10 @@ import java.util.List;
 
 import mx.leyenda.leyendabeta.domain.MbMarker;
 import mx.leyenda.leyendabeta.io.ApiClient;
+import mx.leyenda.leyendabeta.ui.fragment.PlayDialogFragment;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
-import mx.leyenda.leyendabeta.ui.fragment.PlayDialogFragment;
 
 /**
  * Created by samo92 on 06/10/2015.
@@ -40,15 +34,6 @@ public class MapBoxView extends AppCompatActivity {
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
 
-<<<<<<< HEAD
-    MbMarker myMarker = new MbMarker("Iglesia de Santo Domingo", "Una monja se ahorca en un arbol de duraznos",
-            new LatLng(19.438547, -99.133587));
-=======
-    /*MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
-            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");*/
-
-    //MbMarker myMarker;
->>>>>>> origin/feature_retrofit
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -71,8 +56,7 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
-<<<<<<< HEAD
-        makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
         myMapView.addItemizedOverlay(new ItemizedIconOverlay(MapBoxView.this, myMarkers, new ItemizedIconOverlay.OnItemGestureListener<Marker>() {
             @Override
             public boolean onItemSingleTapUp(int i, Marker marker) {
@@ -86,10 +70,8 @@ public class MapBoxView extends AppCompatActivity {
                 return true;
             }
         }));
-=======
         //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
         getMarkers();
->>>>>>> origin/feature_retrofit
 
     }
 
@@ -99,14 +81,14 @@ public class MapBoxView extends AppCompatActivity {
         playDialogFragment.show(fragmentManager, "dialogfragment_play");
     }
 
-    private void getMarkers(){
+    private void getMarkers() {
         ApiClient.getMarkers(new Callback<List<MbMarker>>() {
             @Override
             public void success(List<MbMarker> mbMarkers, Response response) {
 
                 for (int i = 0; i < mbMarkers.size(); i++) {
                     myMarkers.add(mbMarkers.get(i).toMarker(MapBoxView.this).addTo(myMapView));
-                                                    //.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
+                    //.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
                 }
                 myMapView.addMarkers(myMarkers);
                 //markers.add(myMarker.toMarker());
@@ -162,14 +144,7 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.show();
     }
 
-<<<<<<< HEAD
-    private void makeMarker(ArrayList<Marker> myMarkers) {     //Metodo que añade un solo marker
-        myMarkers.add(new Marker(myMapView,
-                myMarker.getTitleMarker(),
-                myMarker.getDescriptionMarker(),
-                myMarker.getLatLngMarker())
-                .setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be")));
-=======
+
     /*private void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
         myMarkers.add(new Marker(myMapView,
                                 myMarker.getTitleMarker(),
@@ -179,7 +154,6 @@ public class MapBoxView extends AppCompatActivity {
 
         //myMarkers.add(myMarker.toMarker().addTo(myMapView));//.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
 
->>>>>>> origin/feature_retrofit
         myMapView.addMarkers(myMarkers);
     }*/
 }
