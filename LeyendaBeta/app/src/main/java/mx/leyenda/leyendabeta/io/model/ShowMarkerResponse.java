@@ -11,7 +11,7 @@ import mx.leyenda.leyendabeta.domain.MbMarker;
  */
 public class ShowMarkerResponse {
 
-    @SerializedName("markers")
+    @SerializedName("Courses")                          //Este nombre lo pone gonza
     ArrayList<MbMarker> allMarkers;
 
     public ArrayList<MbMarker> getMarkers(){

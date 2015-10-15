@@ -32,10 +32,10 @@ public class MapBoxView extends AppCompatActivity {
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
 
-    /*MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
-            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");*/
+    MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
+            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");
 
-    MbMarker myMarker;
+    //MbMarker myMarker;
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
@@ -58,7 +58,7 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
-        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+        makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
 
 
     }
@@ -130,6 +130,6 @@ public class MapBoxView extends AppCompatActivity {
 
         //myMarkers.add(myMarker.toMarker().addTo(myMapView));//.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
 
-        //myMapView.addMarkers(myMarkers);
+        myMapView.addMarkers(myMarkers);
     }
 }
