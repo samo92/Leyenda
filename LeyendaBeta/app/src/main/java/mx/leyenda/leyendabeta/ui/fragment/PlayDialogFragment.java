@@ -22,6 +22,7 @@ import mx.leyenda.leyendabeta.R;
 public class PlayDialogFragment extends DialogFragment implements MediaPlayer.OnPreparedListener {
 
     String url;
+    MediaPlayer mediaPlayer;
 
     public PlayDialogFragment() {
 
@@ -54,11 +55,11 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
                 }
             }
         });
-        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener(){
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
+                dialog.dismiss();
             }
         });
         return alertDialog.create();
@@ -70,7 +71,8 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
     }
 
     public void setupMedia() throws IOException {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDataSource(getActivity(), Uri.parse(url));
         mediaPlayer.prepareAsync(); // might take long! (for buffering, etc)
@@ -81,6 +83,7 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
 
     @Override
     public void onPrepared(MediaPlayer mp) {
+
         mp.start();
     }
 }

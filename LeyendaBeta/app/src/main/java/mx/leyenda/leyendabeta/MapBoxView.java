@@ -56,35 +56,24 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
-        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
-        myMapView.addItemizedOverlay(new ItemizedIconOverlay(MapBoxView.this, myMarkers, new ItemizedIconOverlay.OnItemGestureListener<Marker>() {
-            @Override
-            public boolean onItemSingleTapUp(int i, Marker marker) {
-                Toast.makeText(MapBoxView.this, "Marker Selected1: " + marker.getTitle(), Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onItemLongPress(int i, Marker marker) {
-                showEditDialog();
-                return true;
-            }
-        }));
-        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
         getMarkers();
+        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+
+        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+
 
     }
 
-    private void showEditDialog() {
+    private void showEditDialog(String url) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance("Reproducir", "http://vignette3.wikia.nocookie.net/es.gta/images/5/54/GTA_VCS.ogg/revision/latest?cb=20100503204503");
+        PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance("Reproducir", url);
         playDialogFragment.show(fragmentManager, "dialogfragment_play");
     }
 
     private void getMarkers() {
         ApiClient.getMarkers(new Callback<List<MbMarker>>() {
             @Override
-            public void success(List<MbMarker> mbMarkers, Response response) {
+            public void success(final List<MbMarker> mbMarkers, Response response) {
 
                 for (int i = 0; i < mbMarkers.size(); i++) {
                     myMarkers.add(mbMarkers.get(i).toMarker(MapBoxView.this).addTo(myMapView));
@@ -92,6 +81,23 @@ public class MapBoxView extends AppCompatActivity {
                 }
                 myMapView.addMarkers(myMarkers);
                 //markers.add(myMarker.toMarker());
+                myMapView.addItemizedOverlay(new ItemizedIconOverlay(MapBoxView.this, myMarkers, new ItemizedIconOverlay.OnItemGestureListener<Marker>() {
+
+
+                    @Override
+                    public boolean onItemSingleTapUp(int i, Marker marker) {
+                        String titulo = mbMarkers.get(i).getTitleMarker();
+                        Toast.makeText(MapBoxView.this, "Marker Selected: " + titulo, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onItemLongPress(int i, Marker marker) {
+                        String url = mbMarkers.get(i).getRecordMarker();
+                        showEditDialog(url);
+                        return true;
+                    }
+                }));
 
 
             }
