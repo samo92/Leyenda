@@ -1,5 +1,7 @@
 package mx.leyenda.leyendabeta.domain;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.Icon;
@@ -16,18 +18,25 @@ public class MbMarker {
     //private MapView myMapView;
     @SerializedName("id")
     private int idMarker;
+
     @SerializedName("titulo")
     private String titleMarker;
+
     @SerializedName("descripcion")
     private String descriptionMarker;
-    @SerializedName("lon")
+
+    @SerializedName("lon")                  //Coordenada signo negatico
     private double lonMarker;
-    @SerializedName("lat")
+
+    @SerializedName("lat")                  //Coordenada signo positivo
     private double langMarker;
+
     @SerializedName("genero")
     private int genreMarker;
+
     @SerializedName("imagen")
     private String imageMarker;
+
     @SerializedName("audio")
     private String recordMarker;
 
@@ -116,9 +125,9 @@ public class MbMarker {
         this.recordMarker = recordMarker;
     }
 
-    public Marker toMarker (){
-        return new Marker(getTitleMarker(), getDescriptionMarker(), getLatLngMarker(getLangMarker(),getLonMarker()));
-                //.setIcon(new Icon(MapBoxView.class, Icon.Size.LARGE, "danger", "3887be"));
+    public Marker toMarker (Context context){
+        return new Marker(getTitleMarker(), getDescriptionMarker(), getLatLngMarker(getLangMarker(),getLonMarker()))
+                .setIcon(new Icon(context, Icon.Size.LARGE, "danger", "3887be"));
     }
 }
 

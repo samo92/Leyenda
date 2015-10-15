@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
 import com.mapbox.mapboxsdk.overlay.Icon;
 import com.mapbox.mapboxsdk.overlay.Marker;
@@ -16,10 +15,10 @@ import com.mapbox.mapboxsdk.overlay.UserLocationOverlay;
 import com.mapbox.mapboxsdk.views.MapView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mx.leyenda.leyendabeta.domain.MbMarker;
 import mx.leyenda.leyendabeta.io.ApiClient;
-import mx.leyenda.leyendabeta.io.model.ShowMarkerResponse;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -32,8 +31,8 @@ public class MapBoxView extends AppCompatActivity {
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
 
-    MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
-            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");
+    /*MbMarker myMarker = new MbMarker(1,"Monja despechada","Una monja se ahorca en un arbol de duraznos"
+            ,-99.133587,19.438547,1,"Aqui va una imagen","Aqui el au+dio de la leyenda");*/
 
     //MbMarker myMarker;
 
@@ -58,16 +57,22 @@ public class MapBoxView extends AppCompatActivity {
         myMapView = (MapView) findViewById(R.id.mapview);
         locationProvider = new GpsLocationProvider(getApplicationContext());
         setupMapView();
-        makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+        //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
+        getMarkers();
 
 
     }
 
     private void getMarkers(){
-        ApiClient.getMarkers(new Callback<ShowMarkerResponse>() {
+        ApiClient.getMarkers(new Callback<List<MbMarker>>() {
             @Override
-            public void success(ShowMarkerResponse showMarkerResponse, Response response) {
-                ArrayList<MbMarker> markers = showMarkerResponse.getMarkers();
+            public void success(List<MbMarker> mbMarkers, Response response) {
+
+                for (int i = 0; i < mbMarkers.size(); i++) {
+                    myMarkers.add(mbMarkers.get(i).toMarker(MapBoxView.this).addTo(myMapView));
+                                                    //.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
+                }
+                myMapView.addMarkers(myMarkers);
                 //markers.add(myMarker.toMarker());
 
 
@@ -121,7 +126,7 @@ public class MapBoxView extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
+    /*private void makeMarker (ArrayList<Marker> myMarkers){     //Metodo que añade un solo marker
         myMarkers.add(new Marker(myMapView,
                                 myMarker.getTitleMarker(),
                                 myMarker.getDescriptionMarker(),
@@ -131,5 +136,5 @@ public class MapBoxView extends AppCompatActivity {
         //myMarkers.add(myMarker.toMarker().addTo(myMapView));//.setIcon(new Icon(this, Icon.Size.LARGE, "danger", "3887be"));
 
         myMapView.addMarkers(myMarkers);
-    }
+    }*/
 }

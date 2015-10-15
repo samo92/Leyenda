@@ -1,7 +1,9 @@
 package mx.leyenda.leyendabeta.io;
 
+import java.util.List;
+
 import mx.leyenda.leyendabeta.constant.Constant;
-import mx.leyenda.leyendabeta.io.model.ShowMarkerResponse;
+import mx.leyenda.leyendabeta.domain.MbMarker;
 import retrofit.Callback;
 import retrofit.http.GET;
 
@@ -11,5 +13,5 @@ import retrofit.http.GET;
 public interface ApiService {
 
     @GET(Constant.PATH_MARKERS)
-    void getMarkers(Callback<ShowMarkerResponse> serviceResponse);
+    void getMarkers(Callback<List<MbMarker>> serviceResponse);
 }
