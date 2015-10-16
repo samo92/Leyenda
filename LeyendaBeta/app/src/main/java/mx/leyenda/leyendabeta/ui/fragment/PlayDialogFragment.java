@@ -21,7 +21,7 @@ import mx.leyenda.leyendabeta.R;
  */
 public class PlayDialogFragment extends DialogFragment implements MediaPlayer.OnPreparedListener {
 
-    String url;
+    String url, title;
     MediaPlayer mediaPlayer;
 
     public PlayDialogFragment() {
@@ -44,6 +44,7 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_fragment_play, null);
         obtainArgs();
+        alertDialog.setTitle(title);
         alertDialog.setView(view);
         alertDialog.setPositiveButton("Escuchar", new DialogInterface.OnClickListener() {
             @Override
@@ -71,16 +72,17 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
     private void obtainArgs() {
         Bundle args = getArguments();
         url = args.getString("Url");
+        title = args.getString("Reproducir");
     }
 
     public void setupMedia() throws IOException {
 
 
         mediaPlayer = new MediaPlayer();
-        if(mediaPlayer.isPlaying()){
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.release();
-            mediaPlayer.setOnPreparedListener((MediaPlayer.OnPreparedListener)this);
+            mediaPlayer.setOnPreparedListener((MediaPlayer.OnPreparedListener) this);
 
         }
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);

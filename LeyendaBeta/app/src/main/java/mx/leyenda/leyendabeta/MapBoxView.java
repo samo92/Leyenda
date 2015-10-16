@@ -92,10 +92,10 @@ public class MapBoxView extends AppCompatActivity {
         //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
     }
 
-    private void showEditDialog(String url) {
+    private void showEditDialog(String url, String title) {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance("Reproducir", url);
+        PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance(title, url);
         playDialogFragment.show(fragmentManager, "dialogfragment_play");
 
     }
@@ -117,14 +117,15 @@ public class MapBoxView extends AppCompatActivity {
                     @Override
                     public boolean onItemSingleTapUp(int i, Marker marker) {
                         String titulo = mbMarkers.get(i).getTitleMarker();
-                        Toast.makeText(MapBoxView.this, "Marker Selected: " + titulo, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapBoxView.this, "Leyenda: " + titulo, Toast.LENGTH_SHORT).show();
                         return true;
                     }
 
                     @Override
                     public boolean onItemLongPress(int i, Marker marker) {
                         String url = mbMarkers.get(i).getRecordMarker();
-                        showEditDialog(url);
+                        String title = mbMarkers.get(i).getTitleMarker();
+                        showEditDialog(url,title);
                         return true;
 
                     }
