@@ -1,13 +1,22 @@
 package mx.leyenda.leyendabeta;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.overlay.GpsLocationProvider;
@@ -19,6 +28,7 @@ import com.mapbox.mapboxsdk.views.MapView;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.leyenda.leyendabeta.activity.NotificationActivity;
 import mx.leyenda.leyendabeta.domain.MbMarker;
 import mx.leyenda.leyendabeta.io.ApiClient;
 import mx.leyenda.leyendabeta.ui.fragment.PlayDialogFragment;
@@ -33,13 +43,14 @@ public class MapBoxView extends AppCompatActivity {
 
     //Variables
     private ArrayList<Marker> myMarkers = new ArrayList<>();
+    private DrawerLayout drawerLayout;
 
 
     MapView myMapView;
     GpsLocationProvider locationProvider;
     AlertDialog alertDialog = null;
     LocationManager locationManager = null;
-
+    View view;
     //METODOS
 
     @Override
@@ -47,6 +58,25 @@ public class MapBoxView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //this.findViewById(R.id.mapview);
         setContentView(R.layout.mapbox_view);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_bar);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                switch (menuItem.getItemId()) {
+                    case R.id.item_map:
+
+                        drawerLayout.closeDrawers();
+
+                        break;
+
+                }
+
+                return false;
+            }
+        });
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //Validar estado de gps
@@ -60,14 +90,14 @@ public class MapBoxView extends AppCompatActivity {
         //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
 
         //makeMarker(myMarkers);      //mandamos llamar el metodo para poblar el mapa con leyendas
-
-
     }
 
     private void showEditDialog(String url) {
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         PlayDialogFragment playDialogFragment = PlayDialogFragment.newInstance("Reproducir", url);
         playDialogFragment.show(fragmentManager, "dialogfragment_play");
+
     }
 
     private void getMarkers() {
@@ -96,6 +126,7 @@ public class MapBoxView extends AppCompatActivity {
                         String url = mbMarkers.get(i).getRecordMarker();
                         showEditDialog(url);
                         return true;
+
                     }
                 }));
 
@@ -107,6 +138,21 @@ public class MapBoxView extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void createNotification(View view) {
+        Intent intent = new Intent(MapBoxView.this, NotificationActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MapBoxView.this, (int) System.currentTimeMillis(), intent, 0);
+
+        Notification notification = new Notification.Builder(MapBoxView.this)
+                .setContentTitle("Leyenda")
+                .setContentIntent(pendingIntent)
+                .addAction(R.drawable.ic_pause_circle_outline_black_24dp, "Pause", pendingIntent).build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(0, notification);
+
     }
 
     private void setupMapView() {

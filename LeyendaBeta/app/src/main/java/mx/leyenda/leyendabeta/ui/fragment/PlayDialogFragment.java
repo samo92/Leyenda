@@ -50,6 +50,7 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
             public void onClick(DialogInterface dialog, int which) {
                 try {
 
+
                     setupMedia();
 
                 } catch (IOException e) {
@@ -74,7 +75,14 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
 
     public void setupMedia() throws IOException {
 
+
         mediaPlayer = new MediaPlayer();
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer.setOnPreparedListener((MediaPlayer.OnPreparedListener)this);
+
+        }
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDataSource(getActivity(), Uri.parse(url));
         mediaPlayer.prepareAsync(); // might take long! (for buffering, etc)
