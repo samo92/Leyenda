@@ -49,7 +49,9 @@ public class PlayDialogFragment extends DialogFragment implements MediaPlayer.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
+
                     setupMedia();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
